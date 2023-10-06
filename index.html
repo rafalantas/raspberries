@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta content="text/html; charset=UTF-8" http-equiv="content-type">
@@ -267,7 +267,13 @@ $(document).ready(function()
                 text: 'Temperature °C'
             },
             id: 'T'
-    },
+    }, {
+            title: {
+                text: 'MiliVolts mV'
+            },
+            opposite: true,
+            id: 'O'
+    }],
 		exporting: {
 		  enabled: true,
       csv: {
