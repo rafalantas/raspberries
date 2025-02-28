@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wizualizacja temperatur Raspberries </title>
+    <title>Wizualizacja temperatur urządzeń - Kanał 2294492</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@2.0.0"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -56,6 +56,8 @@
                 <option value="1">Ostatnia godzina</option>
                 <option value="24" selected>Ostatni dzień</option>
                 <option value="168">Ostatni tydzień</option>
+                <option value="720">Ostatni miesiąc</option>
+                <option value="8760">Ostatni rok</option>
             </select>
         </div>
         <div class="chart-container">
@@ -86,6 +88,11 @@
         function fetchData() {
             var hours = $('#timeRange').val();
             var results = hours * 12; // 5-minutowe interwały
+            
+            // Ograniczenie liczby wyników dla dłuższych okresów
+            if (hours > 168) {
+                results = Math.min(results, 8000); // Maksymalnie 8000 punktów danych
+            }
 
             $.getJSON('https://api.thingspeak.com/channels/' + channelID + '/feeds.json?api_key=' + apiKey + '&results=' + results, function(data) {
                 var datasets = {};
